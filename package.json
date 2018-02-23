@@ -1,0 +1,17 @@
+{
+  "name": "regmac",
+  "version": "0.0.0",
+  "private": true,
+  "devDependencies": {
+    "concurrently": "^3.5.1",
+    "typescript": "^2.7.2"
+  },
+  "scripts": {
+    "start": "concurrently \"cd frontend && npm start\" \"cd backend && npm start\""
+  },
+  "dependencies": {
+    "express": "^4.16.2",
+    "reflect-metadata": "^0.1.12",
+    "routing-controllers": "^0.7.6"
+  }
+}
