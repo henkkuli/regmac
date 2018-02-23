@@ -7,10 +7,12 @@
     "typescript": "^2.7.2"
   },
   "scripts": {
-    "start": "concurrently \"cd frontend && npm start\" \"cd backend && npm start\""
+    "start": "concurrently \"cd frontend && npm start\" \"cd backend && npm start\"",
+    "install": "concurrently \"cd frontend && npm install\" \"cd backend && npm install\""
   },
   "dependencies": {
     "express": "^4.16.2",
+    "express-http-proxy": "^1.1.0",
     "reflect-metadata": "^0.1.12",
     "routing-controllers": "^0.7.6"
   }

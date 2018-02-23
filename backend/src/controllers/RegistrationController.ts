@@ -3,7 +3,7 @@ import {JsonController, Param, Body, Get, Post, Put, Delete} from "routing-contr
 @JsonController()
 export class RegistrationController {
     
-    @Get("/")
+    @Get("/index")
     public index() {
         return {"title": "Index"};
     }
