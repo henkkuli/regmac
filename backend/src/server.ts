@@ -5,7 +5,7 @@ import express = require("express");
 import path = require("path");
 import fs = require("fs");
 import { createConnection, useContainer as ormUseContainer, Repository } from "typeorm";
-import { Form, Field, Restriction, FilledField, FilledForm } from "./models";
+import { Form, Field, FilledField, FilledForm } from "./models";
 import { Container, Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { DevDatabaseCreator } from "./devDatabaseCreator";
@@ -26,7 +26,6 @@ async function main() {
             entities: [
                 Form,
                 Field,
-                Restriction,
                 FilledForm,
                 FilledField
             ],

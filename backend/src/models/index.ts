@@ -1,14 +1,9 @@
-import {Entity, PrimaryGeneratedColumn, Column, Generated, ManyToMany, ManyToOne, OneToMany, Repository} from "typeorm";
-import { Service } from "typedi";
+import { Entity, PrimaryGeneratedColumn, Column, Generated, ManyToMany, ManyToOne, OneToMany, Repository } from "typeorm";
 
 @Entity()
 export class Form {
-    @PrimaryGeneratedColumn()
-    id: number;
-
-    @Column()
-    @Generated("uuid")
-    uuid: string;
+    @PrimaryGeneratedColumn("uuid")
+    id: string;
 
     @OneToMany(type => Field, field => field.form)
     fields: Field[];
@@ -23,12 +18,8 @@ export class Form {
 
 @Entity()
 export class Field {
-    @PrimaryGeneratedColumn()
-    id: number;
-
-    @Column()
-    @Generated("uuid")
-    uuid: string;
+    @PrimaryGeneratedColumn("uuid")
+    id: string;
 
     @ManyToOne(type => Form, form => form.fields)
     form: Form;
@@ -36,25 +27,18 @@ export class Field {
     @Column()
     name: string;
 
+    @Column({ nullable: true })
+    restrictions: string;
+
     public constructor(name: string) {
         this.name = name;
     }
 }
 
 @Entity()
-export class Restriction {
-    @PrimaryGeneratedColumn()
-    id: number;
-
-    @Column()
-    @Generated("uuid")
-    uuid: string;
-}
-
-@Entity()
 export class FilledField {
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryGeneratedColumn("uuid")
+    id: string;
 
     @ManyToOne(type => Field)
     field: Field;
@@ -65,8 +49,8 @@ export class FilledField {
 
 @Entity()
 export class FilledForm {
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryGeneratedColumn("uuid")
+    id: string;
 
     @ManyToOne(type => Field)
     field: Field;
