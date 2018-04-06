@@ -1,7 +1,22 @@
 {
+    "compileOnSave": false,
+    "include": [
+        "**/*.ts"
+    ],
+    "exclude": [
+        "node_modules"
+    ],
     "compilerOptions": {
+        "alwaysStrict": true,
+        "charset": "utf-8",
+        "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "jsx": "react",
-        "jsxFactory": "React.createElement"
+        "target": "es5",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "lib": [
+            "es2015",
+            "es2015.promise"
+        ]
     }
 }

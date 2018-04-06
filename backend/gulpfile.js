@@ -7,7 +7,7 @@ const typescript = require('typescript');
 const fs = require('fs');
 
 // Server configuration
-const serverConfigPath = path.join(__dirname, 'tsconfig.json');
+const serverConfigPath = path.join(__dirname, '../tsconfig.json');
 const serverProject = ts.createProject(serverConfigPath);
 const serverSrc = ['src/**/*.ts'];
 
@@ -40,13 +40,25 @@ gulp.task('develop', ['watch'], function () {
     // A home made server runner
     let child = null;;
     let busy = false;
+    let dead = false;
 
     function spawn() {
         child = child_process.fork(serverExecutable);
         busy = false;
+        dead = false;
+        child.once('exit', exited);
+    }
+
+    function exited() {
+        dead = true;
     }
 
     gulp.watch(serverSrc, ['server', function () {
+        if (dead) {
+            spawn();
+            return;
+        }
+
         if (busy)
             return;
 
