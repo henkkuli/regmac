@@ -6,7 +6,10 @@
     "build": "./node_modules/.bin/webpack",
     "start": "./node_modules/.bin/webpack --watch"
   },
-  "dependencies": {},
+  "dependencies": {
+    "vue-router": "^3.0.1",
+    "whatwg-fetch": "^2.0.4"
+  },
   "devDependencies": {
     "css-loader": "^0.28.11",
     "ts-loader": "^4.1.0",
