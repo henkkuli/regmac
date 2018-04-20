@@ -1,5 +1,5 @@
 <template>
-    <md-card md-with-hover class="md-layout-item md-size-25 md-xsmall-size-100">
+    <md-card md-with-hover @click.native="goto" class="md-layout-item md-size-25 md-xsmall-size-100">
         <md-card-header>
             {{title}}
         </md-card-header>
@@ -18,13 +18,12 @@
 
 <script lang="ts">
 import Vue from "vue";
+import router from "../router";
 
 export default Vue.extend({
-    props: ["title", "description", "uuid"],
+    props: ["title", "description", "id"],
     data() {
-        return {
-            title: this.title
-        }
+        return {}
     },
     computed: {
         short_description() {
@@ -33,7 +32,12 @@ export default Vue.extend({
             }else {
                 return this.description
             }},
-        url() { return '/events/' + this.uuid }
+    },
+    methods: {
+        goto(ev) {
+            router.push("/form/" + this.id)
+            return false
+        }
     }
 })
 
