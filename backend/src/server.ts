@@ -4,12 +4,12 @@ import {RegistrationController} from "./controllers/RegistrationController";
 import express = require("express");
 import path = require("path");
 import fs = require("fs");
+import bodyParser = require("body-parser");
 import { createConnection, useContainer as ormUseContainer, Repository } from "typeorm";
 import { Form, Field, FilledField, FilledForm } from "./models";
 import { Container, Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { DevDatabaseCreator } from "./devDatabaseCreator";
-import { WSASYSNOTREADY } from "constants";
 
 async function main() {
     try{
@@ -41,6 +41,7 @@ async function main() {
             controllers: [RegistrationController]
         });
 
+        app.use(bodyParser.json());
         app.use("/", express.static(path.resolve(__dirname, "./frontend/")));
 
         console.log("Running");
