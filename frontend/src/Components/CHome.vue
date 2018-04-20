@@ -27,7 +27,7 @@ export default Vue.extend({
         }
     },
     async mounted() {
-        let resp = await fetch('/api/getForms')
+        let resp = await fetch('/api/allForms')
         let json = await resp.json()
 
         for(let form of json) {
