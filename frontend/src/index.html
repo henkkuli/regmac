@@ -2,9 +2,19 @@
 <html>
     <head></head>
     <body>
-        <md-app id="app">
+        <md-app id="app" md-waterfall md-mode="fixed">
+            <md-app-toolbar class="md-primary">
+                <span class="md-title">RegMac</span>
+            </md-app-toolbar>
+
             <md-app-content>
-                <router-view></router-view>
+                <div class="md-layout md-alignment-top-center">
+                    <router-view class="md-layout-item
+                        md-xsmall-size-100
+                        md-small-size-80
+                        md-size-60">
+                    </router-view>
+                </div>
             </md-app-content>
         </md-app>
         <script src="./build.js"></script>
