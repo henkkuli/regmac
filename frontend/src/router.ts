@@ -7,7 +7,8 @@ Vue.use(VueRouter)
 let router = new VueRouter({
     routes: [
         {path: '/', component: Components.CHome},
-        {path: '/form/:id', component: Components.CForm}
+        {path: '/form/:id', component: Components.CForm},
+        {path: '/create', component: Components.CFormCreator}
     ]
 })
 
