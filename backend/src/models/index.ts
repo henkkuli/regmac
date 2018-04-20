@@ -45,6 +45,15 @@ export class FilledField {
 
     @ManyToOne(type => FilledForm)
     form: FilledForm;
+
+    @Column()
+    value: string;
+
+    public constructor(field: Field, form: FilledForm, value: string) {
+        this.field = field;
+        this.form = form;
+        this.value = value;
+    }
 }
 
 @Entity()
@@ -52,9 +61,13 @@ export class FilledForm {
     @PrimaryGeneratedColumn("uuid")
     id: string;
 
-    @ManyToOne(type => Field)
-    field: Field;
+    @ManyToOne(type => Form)
+    form: Form;
 
     @OneToMany(type => FilledField, field => field.form)
     fields: FilledField[];
+
+    public constructor(form: Form) {
+        this.form = form;
+    }
 }
