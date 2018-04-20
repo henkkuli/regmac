@@ -1,7 +1,9 @@
-import cHome from './cHome';
+import CHome from './CHome';
+import CEventCard from './CEventCard';
 
 let Components = {
-    cHome: cHome
+    CHome: CHome,
+    CEventCard: CEventCard
 }
 
 export default Components;
