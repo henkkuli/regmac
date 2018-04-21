@@ -4,6 +4,7 @@ import "vue-material/dist/vue-material.min.css";
 //import 'vue-material/dist/theme/default-dark.css' // This line here
 
 import router from "./router";
+import "./foo.scss";
 
 Vue.use(VueMaterial)
 
