@@ -2,16 +2,13 @@
   "name": "regmac",
   "version": "0.0.0",
   "private": true,
-  "devDependencies": {
-    "concurrently": "^3.5.1",
-    "typescript": "^2.7.2"
-  },
+  "description": "fk ilmomasiina",
+  "author": "joonardo & henkkuli",
+  "license": "MIT",
   "scripts": {
-    "start": "concurrently \"cd frontend && npm start\" \"cd backend && npm start\""
+    "start": "concurrently \"cd client && yarn serve\" \"cd server && yarn start\""
   },
-  "dependencies": {
-    "express": "^4.16.2",
-    "reflect-metadata": "^0.1.12",
-    "routing-controllers": "^0.7.6"
+  "devDependencies": {
+    "concurrently": "^4.0.1"
   }
 }
