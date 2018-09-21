@@ -1,0 +1,17 @@
+{
+  "name": "ilmomasiina-server",
+  "version": "1.0.0",
+  "description": "fk ilmomasiina server",
+  "author": "joonardo",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon index.js --exec 'yarn lint && node'",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.11.0",
+    "typescript": "^3.0.3"
+  }
+}

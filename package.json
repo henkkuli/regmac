@@ -1,0 +1,13 @@
+{
+  "name": "ilmomasiina",
+  "version": "1.0.0",
+  "description": "fk ilmomasiina",
+  "author": "joonardo",
+  "license": "MIT",
+  "scripts": {
+    "start": "concurrently \"cd client && yarn serve\" \"cd server && yarn start\""
+  },
+  "devDependencies": {
+    "concurrently": "^4.0.1"
+  }
+}
