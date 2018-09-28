@@ -1,4 +1,11 @@
-import { JsonController, Post, BodyParam, ForbiddenError, UnauthorizedError, BadRequestError } from 'routing-controllers';
+import {
+    JsonController,
+    Post,
+    BodyParam,
+    ForbiddenError,
+    UnauthorizedError,
+    BadRequestError,
+} from 'routing-controllers';
 import { verifyPassword, hashPassword, verifyPasswordRequirements } from '../passwords';
 import { Service } from 'typedi';
 import { EntityManager } from 'typeorm';
