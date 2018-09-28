@@ -20,12 +20,14 @@ async function main() {
     synchronize: true,
     logging: true,
     entities: [
-
+      'models/*.ts',
     ],
   });
 
   const app = createExpressServer({
-    controllers: [],
+    controllers: [
+      'controllers/*.ts',
+    ],
   }) as express.Application;
 
   app.use(bodyParser.json());
