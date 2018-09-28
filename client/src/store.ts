@@ -1,16 +1,11 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import IlmoModule from '@/stores/ilmo';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-
-  },
-  mutations: {
-
-  },
-  actions: {
-
+  modules: {
+    ilmo: IlmoModule,
   },
 });

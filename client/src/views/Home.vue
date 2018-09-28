@@ -1,18 +1,32 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <IlmoListing :filter="filterOpenOrUpcoming" />
+    <IlmoListing :filter="filterClosed" />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+import { Action } from 'vuex-class';
+import IlmoListing from '@/components/home/ilmolisting.vue';
+import IIlmo from '@/interfaces/IIlmo';
 
 @Component({
   components: {
-    HelloWorld,
+    IlmoListing,
   },
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+  @Action private fetchIlmos!: () => void;
+
+  private mounted() {
+    this.fetchIlmos();
+  }
+
+  private filterOpenOrUpcoming = (ilmo: IIlmo) => (
+    ilmo.isOpen || (!ilmo.isOpen && !ilmo.isClosed)
+  )
+
+  private filterClosed = (ilmo: IIlmo) => ilmo.isClosed;
+}
 </script>
