@@ -27,7 +27,7 @@ export async function login(username: string, password: string) {
     throw new NetworkError('Failed to reach server');
   }
 
-  if (response.ok) {
+  if (!response.ok) {
     throw new LoginError(response.statusText);
   }
 
@@ -53,7 +53,7 @@ export async function register(username: string, password: string) {
     throw new NetworkError('Failed to reach server');
   }
 
-  if (response.ok) {
+  if (!response.ok) {
     throw new RegisterError(response.statusText);
   }
 
