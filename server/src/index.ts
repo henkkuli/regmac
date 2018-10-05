@@ -1,10 +1,13 @@
 import 'reflect-metadata';
 import { createExpressServer, useContainer as routingControllersUseContainer } from 'routing-controllers';
 import { Container } from 'typedi';
-import * as bodyParser from 'body-parser';
+import bodyParser from 'body-parser';
 import { createConnection, useContainer as typeormUseContainer } from 'typeorm';
-import * as express from 'express';
+import express from 'express';
 import config from './config';
+import { UserController } from './controllers/user';
+import cors from 'cors';
+import { User } from './models/user';
 
 async function main() {
   routingControllersUseContainer(Container);
@@ -20,16 +23,17 @@ async function main() {
     synchronize: true,
     logging: true,
     entities: [
-      'models/*.ts',
+      User,
     ],
   });
 
   const app = createExpressServer({
     controllers: [
-      'controllers/*.ts',
+      UserController,
     ],
   }) as express.Application;
 
+  app.use(cors());
   app.use(bodyParser.json());
 
   app.listen(config.host.port);

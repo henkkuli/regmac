@@ -1,16 +1,17 @@
 import {
     JsonController,
     Post,
-    BodyParam,
     ForbiddenError,
     UnauthorizedError,
     BadRequestError,
+    Body,
 } from 'routing-controllers';
 import { verifyPassword, hashPassword, verifyPasswordRequirements } from '../passwords';
 import { Service } from 'typedi';
 import { EntityManager } from 'typeorm';
 import { InjectManager } from 'typeorm-typedi-extensions';
 import { User } from '../models/user';
+import { LoginRequest, RegisterRequest } from '../messages/user';
 
 @Service()
 @JsonController('/user')
@@ -19,8 +20,9 @@ export class UserController {
     private entityManager!: EntityManager;
 
     @Post('/login')
-    public async login(@BodyParam('name') name: string, @BodyParam('password') password: string) {
-        const user = await this.entityManager.findOne(User, {where: {name}});
+    public async login(@Body({ validate: true, required: true }) body: LoginRequest): LoginRequest {
+        const { username, password } = body;
+        const user = await this.entityManager.findOne(User, { where: { username } });
         if (!user || !user.passwordHash) {
             throw new UnauthorizedError('Invalid credentials');
         }
@@ -33,18 +35,20 @@ export class UserController {
             this.entityManager.save(user);
         }
         // TODO: Login user
+
     }
 
     @Post('/register')
-    public async register(@BodyParam('name') name: string, @BodyParam('password') password: string) {
-        const user = await this.entityManager.findOne(User, {where: {name}});
-        if (user) {
+    public async register(@Body({ validate: true, required: true }) body: RegisterRequest): RegisterResponse {
+        const { username, password } = body;
+        const existingUser = await this.entityManager.findOne(User, { where: { username } });
+        if (existingUser) {
             throw new ForbiddenError('User exists');
         }
         if (!verifyPasswordRequirements(password)) {
             throw new BadRequestError('Invalid password');
         }
-        const newUser = new User(name, hashPassword(password));
-        await this.entityManager.save(newUser);
+        const user = new User(username, hashPassword(password));
+        await this.entityManager.save(user);
     }
 }
