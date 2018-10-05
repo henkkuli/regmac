@@ -5,8 +5,16 @@ import { NetworkError } from '@/api';
 const apiEndpoint = '//localhost:8000';
 
 // tslint:disable:max-classes-per-file
-export class LoginError extends Error { }
-export class RegisterError extends Error { }
+class BaseError extends Error {
+  public constructor(message?: string) {
+    super(message);
+    if (message) {
+      this.message = message;
+    }
+  }
+}
+export class LoginError extends BaseError {}
+export class RegisterError extends BaseError {}
 
 export async function login(username: string, password: string) {
   let response: Response;
@@ -28,7 +36,7 @@ export async function login(username: string, password: string) {
   }
 
   if (!response.ok) {
-    throw new LoginError(response.statusText);
+    throw new LoginError((await response.json()).message);
   }
 
   return;
@@ -54,7 +62,7 @@ export async function register(username: string, password: string) {
   }
 
   if (!response.ok) {
-    throw new RegisterError(response.statusText);
+    throw new RegisterError((await response.json()).message);
   }
 
   return;
