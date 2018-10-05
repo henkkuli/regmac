@@ -21,7 +21,7 @@ export default class Login extends Vue {
     password: '',
   };
 
-  private submit(ev) {
+  private submit(ev: Event) {
     ev.preventDefault();
 
     if (this.cannotSubmit) {
