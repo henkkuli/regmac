@@ -5,6 +5,7 @@ import {
     UnauthorizedError,
     BadRequestError,
     Body,
+    Session,
 } from 'routing-controllers';
 import { verifyPassword, hashPassword, verifyPasswordRequirements } from '../passwords';
 import { Service } from 'typedi';
@@ -12,6 +13,8 @@ import { EntityManager } from 'typeorm';
 import { InjectManager } from 'typeorm-typedi-extensions';
 import { User } from '../models/user';
 import { LoginRequest, RegisterRequest, RegisterResponse, LoginReponse } from '../messages/user';
+import { SessionData } from '../sessionData';
+import {} from 'express-session';
 
 @Service()
 @JsonController('/user')
@@ -20,7 +23,9 @@ export class UserController {
     private entityManager!: EntityManager;
 
     @Post('/login')
-    public async login(@Body({ validate: true, required: true }) body: LoginRequest): Promise<LoginReponse> {
+    public async login(@Body({ validate: true, required: true }) body: LoginRequest,
+                       @Session() session: Express.Session):
+        Promise<LoginReponse> {
         const { username, password } = body;
         const user = await this.entityManager.findOne(User, { where: { username } });
         if (!user || !user.passwordHash) {
@@ -34,7 +39,8 @@ export class UserController {
             user.passwordHash = hashPassword(password);
             this.entityManager.save(user);
         }
-        // TODO: Login user
+
+        session.data = new SessionData(user.id!);
 
         return new LoginReponse();
     }
