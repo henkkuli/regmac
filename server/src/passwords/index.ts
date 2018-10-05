@@ -12,7 +12,7 @@ export function verifyPasswordRequirements(password: string) {
     if (password.length < 8) {
          return false;
     }
-    return nbp.isCommonPassword(password);
+    return !nbp.isCommonPassword(password);
 }
 
 export function verifyPassword(password: string, passwordHash: string) {

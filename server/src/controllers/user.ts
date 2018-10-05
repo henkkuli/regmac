@@ -48,7 +48,7 @@ export class UserController {
     @Post('/register')
     public async register(@Body({ validate: true, required: true }) body: RegisterRequest): Promise<RegisterResponse> {
         const { username, password } = body;
-        const existingUser = await this.entityManager.findOne(User, { where: { username } });
+        const existingUser = await this.entityManager.findOne(User, { where: { name: username } });
         if (existingUser) {
             throw new ForbiddenError('User exists');
         }
