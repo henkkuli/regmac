@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import {
-  createExpressServer, useContainer as routingControllersUseContainer, useExpressServer,
+  useContainer as routingControllersUseContainer, useExpressServer, Action,
 } from 'routing-controllers';
 import { Container } from 'typedi';
 import bodyParser from 'body-parser';
@@ -8,9 +8,10 @@ import { createConnection, useContainer as typeormUseContainer } from 'typeorm';
 import express from 'express';
 import config from './config';
 import { UserController } from './controllers/user';
-import cors from 'cors';
-import session from 'express-session';
+import session, { MemoryStore } from 'express-session';
 import { User } from './models/user';
+import { createDevelopmentData } from './developmentData';
+import { SessionData } from './sessionData';
 
 async function main() {
   routingControllersUseContainer(Container);
@@ -49,9 +50,27 @@ async function main() {
     controllers: [
       UserController,
     ],
-    cors: true,
+    cors: {
+      origin: config.host.webServerAddress,
+      credentials: true,
+    },
     development: !config.host.production,
+    currentUserChecker: async (action: Action) => {
+      const currentSession = (action.request as express.Request).session;
+      if (!currentSession) {
+        return undefined;
+      }
+      const sessionData = currentSession.data as SessionData;
+      if (!sessionData || !sessionData.userId) {
+        return undefined;
+      }
+      return connection.manager.findOne(User, sessionData.userId);
+    },
   });
+
+  if (!config.host.production) {
+    await createDevelopmentData();
+  }
 
   app.listen(config.host.port);
 }

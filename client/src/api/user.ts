@@ -30,6 +30,7 @@ export async function login(username: string, password: string) {
         'Content-Type': 'application/json; charset=utf-8',
       },
       body: JSON.stringify(message),
+      credentials: 'include',
     });
   } catch (error) {
     throw new NetworkError('Failed to reach server');
@@ -56,6 +57,7 @@ export async function register(username: string, password: string) {
         'Content-Type': 'application/json; charset=utf-8',
       },
       body: JSON.stringify(message),
+      credentials: 'include',
     });
   } catch (error) {
     throw new NetworkError('Failed to reach server');
