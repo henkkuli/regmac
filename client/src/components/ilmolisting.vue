@@ -1,7 +1,7 @@
 <template>
   <ul>
     <li v-for="ilmo in filteredIlmos" :key="ilmo.name">
-      <a href="ilmo.link">{{ ilmo.name }}</a>
+      <a :href="ilmo.link">{{ ilmo.name }}</a>
     </li>
   </ul>
 </template>
