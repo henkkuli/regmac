@@ -6,7 +6,7 @@
     <b-form-group label="Password" label-for="password">
       <b-form-input id="password" type="password" v-model="form.password" />
     </b-form-group>
-    <b-button :disabled="cannotSubmit" type="submit">Register</b-button>
+    <b-button :disabled="cannotSubmit" type="submit">Login</b-button>
   </b-form>
 </template>
 <script lang="ts">

@@ -1,4 +1,4 @@
-import { LoginRequest, RegisterRequest } from './messages/user';
+import { LoginRequest, RegisterRequest, User } from './messages/user';
 import { NetworkError } from '@/api';
 
 // TODO: Move to a constants file
@@ -68,4 +68,36 @@ export async function register(username: string, password: string) {
   }
 
   return;
+}
+
+/**
+ * @throws Networkerror, if cannot reach server, or user has not authenticated
+ * @returns User object representing current user
+ */
+export async function me(): Promise<User> {
+  let response: Response;
+  try {
+    response = await fetch(`${apiEndpoint}/user/me`, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+      credentials: 'include',
+    });
+  } catch (error) {
+    throw new NetworkError('Failed to reach the server');
+  }
+
+  if (!response.ok) {
+    throw new NetworkError(response.statusText);
+  }
+
+  const userWrapper = await response.json();
+
+  if (!userWrapper) {
+    throw new NetworkError('Not logged in.');
+  }
+
+  return userWrapper.user;
 }

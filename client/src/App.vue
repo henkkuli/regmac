@@ -2,10 +2,16 @@
   <b-container id="app" fluid>
     <b-navbar>
       <b-navbar-brand><h1>Fyysikkokilta</h1></b-navbar-brand>
-      <b-navbar-nav>
-        <router-link to="/home">Home</router-link>
-        <router-link to="/login">Login</router-link>
-      </b-navbar-nav>
+
+      <b-navbar-nav ml="auto" />
+
+      <div v-if="!username">
+        <b-link to="/">Home</b-link>
+        <b-link to="/login">Login</b-link>
+      </div>
+      <div v-if="!!username">
+        <span>Hello, {{ username }}!</span>
+      </div>
     </b-navbar>
     <b-col offset-md="3" md="6">
       <router-view />
@@ -14,14 +20,17 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { Action } from 'vuex-class';
+import { Action, Getter } from 'vuex-class';
 
 @Component
 export default class App extends Vue {
   @Action private fetchIlmos!: () => void;
+  @Action private me!: () => void;
+  @Getter private username!: string | undefined;
 
   public mounted() {
     this.fetchIlmos();
+    this.me();
   }
 }
 </script>

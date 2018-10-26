@@ -1,7 +1,9 @@
 <template>
   <ul>
     <li v-for="ilmo in filteredIlmos" :key="ilmo.name">
-      <a :href="ilmo.link">{{ ilmo.name }}</a>
+      <router-link :to="{ name: 'ilmo', params: { id: ilmo.link } }">
+        {{ ilmo.name }}
+      </router-link>
     </li>
   </ul>
 </template>
