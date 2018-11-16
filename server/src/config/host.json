@@ -1,6 +1,6 @@
 {
-    "port": 8000,
-    "sessionSecret": "securityBy0bscurity",
-    "production": false,
-    "webServerAddress": "http://localhost:8080"
+  "port": 8000,
+  "sessionSecret": "securityBy0bscurity",
+  "production": false,
+  "webServerAddress": "http://localhost:8080"
 }

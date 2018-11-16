@@ -12,6 +12,11 @@ import session, { MemoryStore } from 'express-session';
 import { User } from './models/user';
 import { createDevelopmentData } from './developmentData';
 import { SessionData } from './sessionData';
+import { Form } from './models/form';
+import { FormData } from './models/formData';
+import { FieldData } from './models/fieldData';
+import { Field } from './models/field';
+import { RegistrationController } from './controllers/registration';
 
 async function main() {
   routingControllersUseContainer(Container);
@@ -28,6 +33,10 @@ async function main() {
     logging: true,
     entities: [
       User,
+      Form,
+      FormData,
+      Field,
+      FieldData,
     ],
   });
 
@@ -49,6 +58,7 @@ async function main() {
   useExpressServer(app, {
     controllers: [
       UserController,
+      RegistrationController,
     ],
     cors: {
       origin: config.host.webServerAddress,
