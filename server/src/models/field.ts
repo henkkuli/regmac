@@ -25,7 +25,7 @@ export class Field {
   @Column('simple-json', { nullable: true })
   public extraOptions?: FieldExtraOptions;
 
-  @ManyToOne((type) => Form)
+  @ManyToOne((type) => Form, { cascade: true })
   public form!: Promise<Form>;
 
   @OneToMany((type) => FieldData, (data) => data.field)

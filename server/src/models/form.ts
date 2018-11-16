@@ -16,8 +16,10 @@ export class Form {
   @OneToMany((type) => FormData, (data) => data.form)
   public data!: Promise<FormData[]>;
 
-  public constructor(name: string, fields: Field[]) {
+  public constructor(name: string, fields?: Field[]) {
     this.name = name;
-    this.fields = Promise.resolve(fields);
+    if (fields !== undefined) {
+      this.fields = Promise.resolve(fields);
+    }
   }
 }
