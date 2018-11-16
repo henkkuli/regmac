@@ -8,7 +8,7 @@ export enum FieldType {
   TEXTAREA,
 }
 
-type FieldExtraOptions = any;
+export type FieldExtraOptions = any;
 
 @Entity()
 export class Field {
